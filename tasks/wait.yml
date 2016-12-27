@@ -1,0 +1,10 @@
+---
+
+- name: Wait for Gogs to start up
+  uri:
+    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/"
+    status_code: 200
+  register: gogs_startup_resp
+  until: (gogs_startup_resp is defined) and (gogs_startup_resp.status == 200)
+  retries: "{{ gogs_connection_retries }}"
+  delay: "{{ gogs_connection_delay }}"

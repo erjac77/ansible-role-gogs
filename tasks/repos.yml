@@ -1,0 +1,7 @@
+---
+
+- name: Create repositories
+  include: repo.yml
+  with_items: "{{ gogs_repos }}"
+  loop_control:
+    loop_var: repo_item

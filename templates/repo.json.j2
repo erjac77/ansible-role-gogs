@@ -1,0 +1,9 @@
+{
+    "name": "{{ repo_item.name }}"{% if repo_item.description is defined %},
+    "description": "{{ repo_item.description }}"{% endif %}{% if repo_item.private is defined %},
+    "private": {{ repo_item.private }}{% endif %}{% if repo_item.auto_init is defined %},
+    "auto_init": {{ repo_item.auto_init }}{% endif %}{% if repo_item.gitignores is defined %},
+    "gitignores": "{{ repo_item.gitignores }}"{% endif %}{% if repo_item.license is defined %},
+    "license": "{{ repo_item.license }}"{% endif %}{% if repo_item.readme is defined %},
+    "readme": "{{ repo_item.readme }}"{% endif %}
+}

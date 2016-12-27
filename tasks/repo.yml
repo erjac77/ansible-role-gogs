@@ -1,0 +1,25 @@
+---
+
+- name: Get repo
+  uri:
+    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/repos/{{ repo_item.owner }}/{{ repo_item.name }}"
+    user: "{{ gogs_admin_username }}"
+    password: "{{ gogs_admin_password }}"
+    force_basic_auth: yes
+    status_code: [200, 404]
+  register: gogs_get_repo_resp
+
+- name: Create repo
+  uri:
+    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/admin/users/{{ repo_item.owner }}/repos"
+    method: POST
+    HEADER_Content-Type: application/json
+    body: "{{ lookup('template', 'templates/repo.json.j2') }}"
+    body_format: json
+    user: "{{ gogs_admin_username }}"
+    password: "{{ gogs_admin_password }}"
+    force_basic_auth: yes
+    status_code: 201
+  register: gogs_create_repo_resp
+  when: gogs_get_repo_resp.status == 404
+  changed_when: gogs_create_repo_resp.status == 201

@@ -1,0 +1,23 @@
+---
+
+- name: Install Gogs on Docker
+  hosts: localhost
+  become: yes
+
+  vars:
+    gogs_platform: Docker
+    gogs_enable_captcha: false
+    gogs_admin_username: erjac
+    gogs_admin_password: erjac
+    gogs_admin_fullname: Eric Jacob
+    gogs_admin_email: erjac77@gmail.com
+    gogs_users:
+      - { username: "{{ gogs_admin_username }}", password: "{{ gogs_admin_password }}", fullname: "{{ gogs_admin_fullname }}", email: "{{ gogs_admin_email }}", admin: true }
+      - { username: jodoe, password: jodoe, fullname: John Doe, email: john.doe@mycompany.com, admin: false }
+      - { username: jadoe, password: jadoe, email: jane.doe@mycompany.com }
+    gogs_repos:
+      - { owner: jodoe, name: john-awesome-project, description: My awesome project, private: true, auto_init: true, gitignores: "Python", license: "Apache License 2.0", readme: "Default" }
+      - { owner: jadoe, name: jane-cool-project }
+
+  roles:
+    - erjac77.gogs

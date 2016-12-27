@@ -1,0 +1,14 @@
+---
+
+- name: Restart Gogs container
+  docker_container:
+    name: "{{ gogs_container_name }}"
+    image: "{{ gogs_container_image }}"
+    state: started
+    restart: yes
+    published_ports:
+      - "{{ gogs_container_http_host_port }}:{{ gogs_container_http_container_port }}"
+      - "{{ gogs_container_ssh_host_port }}:{{ gogs_container_ssh_container_port }}"
+    volumes:
+      - "{{ gogs_container_data_volume }}:/data"
+  register: gogs_container_result

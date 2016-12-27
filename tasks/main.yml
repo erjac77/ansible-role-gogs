@@ -1,0 +1,9 @@
+---
+
+- name: Gather platform specific variables
+  include_vars: "{{ gogs_platform }}.yml"
+
+- include: "{{ gogs_platform }}/setup.yml"
+- include: configure.yml
+- include: users.yml
+- include: repos.yml
