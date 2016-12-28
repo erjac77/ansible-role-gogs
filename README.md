@@ -35,14 +35,14 @@ gogs_platform: Docker
 
 # Gogs database settings
 gogs_db_type: SQLite3
-gogs_db_host: 127.0.0.1:3306
+gogs_db_host: '127.0.0.1:3306'
 gogs_db_user: root
 gogs_db_pass: default
 gogs_db_name: gogs
 gogs_db_path: data/gogs.db
 
 # Gogs application general settings
-gogs_app_name: "Gogs: Go Git Service"
+gogs_app_name: 'Gogs: Go Git Service'
 gogs_repo_root_path: /data/git/gogs-repositories
 gogs_run_user: git
 gogs_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
@@ -61,11 +61,14 @@ gogs_connection_delay: 5
 gogs_admin_username: gogs
 gogs_admin_password: gogs
 gogs_admin_fullname: Gogs Administrator
-gogs_admin_email: gogs.admin@mycompany.com
+gogs_admin_email: 'gogs.admin@gogs.io'
 
 # Gogs users
 gogs_users:
   - { username: "{{ gogs_admin_username }}", password: "{{ gogs_admin_password }}", fullname: "{{ gogs_admin_fullname }}", email: "{{ gogs_admin_email }}", admin: true }
+
+# Gogs organizations
+gogs_orgs: []
 
 # Gogs repositories
 gogs_repos: []
@@ -102,17 +105,20 @@ gogs_container_data_volume: gogs-data
   vars:
     gogs_platform: Docker
     gogs_enable_captcha: false
-    gogs_admin_username: erjac
-    gogs_admin_password: erjac
-    gogs_admin_fullname: Eric Jacob
-    gogs_admin_email: erjac77@gmail.com
+    gogs_admin_username: gogs
+    gogs_admin_password: gogs
+    gogs_admin_fullname: Gogs Administrator
+    gogs_admin_email: gogs.admin@gogs.io
     gogs_users:
       - { username: "{{ gogs_admin_username }}", password: "{{ gogs_admin_password }}", fullname: "{{ gogs_admin_fullname }}", email: "{{ gogs_admin_email }}", admin: true }
-      - { username: jodoe, password: jodoe, fullname: John Doe, email: john.doe@mycompany.com, admin: false }
-      - { username: jadoe, password: jadoe, email: jane.doe@mycompany.com }
+      - { username: jodoe, password: jodoe, fullname: John Doe, email: 'john.doe@gogs.io', admin: false }
+      - { username: jadoe, password: jadoe, email: 'jane.doe@gogs.io' }
+    gogs_orgs:
+      - { owner: jodoe, name: gogs2, fullname: Gogs2, description: Gogs(Go Git Service) is a painless self-hosted Git Service., website: 'https://gogs.io', location: USA }
     gogs_repos:
-      - { owner: jodoe, name: john-awesome-project, description: My awesome project, private: true, auto_init: true, gitignores: "Python", license: "Apache License 2.0", readme: "Default" }
+      - { owner: jodoe, name: john-awesome-project, description: My awesome project, private: true, auto_init: true, gitignores: Python, license: Apache License 2.0, readme: Default }
       - { owner: jadoe, name: jane-cool-project }
+      - { owner: gogs2, name: gogs2-project }
 
   roles:
     - erjac77.gogs

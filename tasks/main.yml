@@ -6,4 +6,5 @@
 - include: "{{ gogs_platform }}/setup.yml"
 - include: configure.yml
 - include: users.yml
+- include: orgs.yml
 - include: repos.yml

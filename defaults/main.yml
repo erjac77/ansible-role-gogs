@@ -6,14 +6,14 @@ gogs_platform: Docker
 
 # Gogs database settings
 gogs_db_type: SQLite3
-gogs_db_host: 127.0.0.1:3306
+gogs_db_host: '127.0.0.1:3306'
 gogs_db_user: root
 gogs_db_pass: default
 gogs_db_name: gogs
 gogs_db_path: data/gogs.db
 
 # Gogs application general settings
-gogs_app_name: "Gogs: Go Git Service"
+gogs_app_name: 'Gogs: Go Git Service'
 gogs_repo_root_path: /data/git/gogs-repositories
 gogs_run_user: git
 gogs_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
@@ -32,11 +32,14 @@ gogs_connection_delay: 5
 gogs_admin_username: gogs
 gogs_admin_password: gogs
 gogs_admin_fullname: Gogs Administrator
-gogs_admin_email: gogs.admin@mycompany.com
+gogs_admin_email: 'gogs.admin@gogs.io'
 
 # Gogs users
 gogs_users:
   - { username: "{{ gogs_admin_username }}", password: "{{ gogs_admin_password }}", fullname: "{{ gogs_admin_fullname }}", email: "{{ gogs_admin_email }}", admin: true }
+
+# Gogs organizations
+gogs_orgs: []
 
 # Gogs repositories
 gogs_repos: []

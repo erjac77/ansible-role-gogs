@@ -1,0 +1,7 @@
+{
+    "username": "{{ org_item.name }}"{% if org_item.fullname is defined %},
+    "full_name": "{{ org_item.fullname }}"{% endif %}{% if org_item.description is defined %},
+    "description": "{{ org_item.description }}"{% endif %}{% if org_item.website is defined %},
+    "website": "{{ org_item.website }}"{% endif %}{% if org_item.location is defined %},
+    "location": "{{ org_item.location }}"{% endif %}
+}
