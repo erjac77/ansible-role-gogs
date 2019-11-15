@@ -110,7 +110,7 @@ None.
 
 ```yaml
 - name: Install Gogs on Linux
-  hosts: localhost
+  hosts: all
   become: true
 
   vars:
