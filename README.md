@@ -51,6 +51,7 @@ gogs_binary_url: "https://github.com/gogits/gogs/releases/download/v{{ gogs_vers
 # Gogs dependencies
 gogs_dependencies:
   - git
+  - unzip
 
 # Gogs run user
 gogs_user: git
