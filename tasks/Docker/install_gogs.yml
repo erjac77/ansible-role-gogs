@@ -2,7 +2,7 @@
 - name: Check if Gogs data volume exists
   command: "docker volume inspect {{ gogs_container_data_volume }}"
   register: gogs_volume_inspect_output
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
 
 - name: If not, create it
