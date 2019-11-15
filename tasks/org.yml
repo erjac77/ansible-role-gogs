@@ -16,7 +16,8 @@
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/admin/users/{{ org_owners[0].username }}/orgs"
     method: POST
-    HEADER_Content-Type: application/json
+    headers:
+      Content-Type: application/json
     body: "{{ lookup('template', 'templates/org.json.j2') }}"
     body_format: json
     user: "{{ gogs_admin_username }}"
@@ -31,7 +32,8 @@
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/orgs/{{ org_item.name }}"
     method: PATCH
-    HEADER_Content-Type: application/json
+    headers:
+      Content-Type: application/json
     body: "{{ lookup('template', 'templates/org.json.j2') }}"
     body_format: json
     user: "{{ org_owners[0].username }}"

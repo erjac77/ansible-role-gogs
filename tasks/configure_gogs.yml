@@ -3,7 +3,8 @@
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/install"
     method: POST
-    HEADER_Content-Type: "application/x-www-form-urlencoded"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
     body_format: form-urlencoded
     body:
       db_type: "{{ gogs_db_type }}"

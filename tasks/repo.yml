@@ -12,7 +12,8 @@
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/admin/users/{{ repo_item.owner }}/repos"
     method: POST
-    HEADER_Content-Type: application/json
+    headers:
+      Content-Type: application/json
     body: "{{ lookup('template', 'templates/repo.json.j2') }}"
     body_format: json
     user: "{{ gogs_admin_username }}"
