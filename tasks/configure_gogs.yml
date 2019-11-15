@@ -1,5 +1,4 @@
 ---
-
 - name: Configure Gogs (install page)
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/install"

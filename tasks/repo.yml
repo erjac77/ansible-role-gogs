@@ -1,5 +1,4 @@
 ---
-
 - name: Get repo
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/repos/{{ repo_item.owner }}/{{ repo_item.name }}"

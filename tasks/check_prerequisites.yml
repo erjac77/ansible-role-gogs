@@ -1,5 +1,4 @@
 ---
-
 - name: Check OS Requirements
   include_tasks: "{{ ansible_os_family }}/check_os_requirements.yml"
 

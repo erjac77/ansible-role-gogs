@@ -1,5 +1,4 @@
 ---
-
 # Gogs log directory
 gogs_log_path: /data/gogs/log
 

@@ -1,5 +1,4 @@
 ---
-
 - name: restart gogs
   service:
     name: gogs

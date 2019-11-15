@@ -1,5 +1,4 @@
 ---
-
 - name: Wait for Gogs to start up
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/"

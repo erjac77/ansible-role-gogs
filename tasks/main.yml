@@ -1,5 +1,4 @@
 ---
-
 - name: Install Gogs on Docker
   include_tasks: Docker/install_gogs.yml
   when: gogs_platform == 'Docker'

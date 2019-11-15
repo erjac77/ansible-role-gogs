@@ -1,5 +1,4 @@
 ---
-
 - name: Get user
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/users/{{ user_item.username }}"
