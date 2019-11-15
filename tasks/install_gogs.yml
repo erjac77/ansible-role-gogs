@@ -35,19 +35,16 @@
     group: "{{ gogs_user }}"
     mode: 0755
 
-- name: Enable Gogs to start on boot
-  block:
-    - name: Create Gogs system service file
-      template:
-        src: gogs.unit.j2
-        dest: /etc/systemd/system/gogs.service
-        owner: root
-        group: root
-        mode: 0755
+- name: Create Gogs system service file
+  template:
+    src: gogs.unit.j2
+    dest: /etc/systemd/system/gogs.service
+    owner: root
+    group: root
+    mode: 0755
 
-    - name: Make sure Gogs service is running and enable it to start on boot
-      service:
-        name: gogs
-        enabled: true
-        state: started
-  when: ansible_service_mgr == 'systemd'
+- name: Make sure Gogs service is running and enable it to start on boot
+  service:
+    name: gogs
+    enabled: true
+    state: started
