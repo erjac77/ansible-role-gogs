@@ -1,8 +1,8 @@
 ---
 
-- name: Install Gogs on Docker
+- name: Converge
   hosts: localhost
-  become: yes
+  become: true
 
   vars:
     gogs_platform: Docker

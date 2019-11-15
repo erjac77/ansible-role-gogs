@@ -1,37 +1,60 @@
-# ANSIBLE ROLE: GOGS
+# Ansible: Gogs
+
+[![Build Status](https://travis-ci.com/erjac77/ansible-role-gogs.svg?branch=master)](https://travis-ci.com/erjac77/ansible-role-gogs)
+[![Ansible Quality Score](https://img.shields.io/ansible/quality/14519)](https://galaxy.ansible.com/erjac77/gogs)
+[![Ansible Role](https://img.shields.io/ansible/role/14519)](https://galaxy.ansible.com/erjac77/gogs)
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 
 An Ansible role to install Gogs (Go Git Service) on various platforms.
 
-_**Note:** At the moment, Docker is the only platform supported by this role._
+## Requirements
 
-## REQUIREMENTS
+#### Supported platforms
 
-* Docker >= 1.12.4
+* Docker
+* Linux
 
-## INSTALLATION
+#### Supported Linux distributions
 
-#### USING _ANSIBLE GALAXY_:
+| Distribution | Version            |
+| ------------ | ------------------ |
+| CentOS       | 6                  |
+|              | 7                  |
+| Debian       | Buster 10          |
+|              | Stretch 9 (stable) |
+| Fedora       | 29                 |
+|              | 28                 |
+| Ubuntu       | Disco 19.04        |
+|              | Cosmic 18.10       |
+|              | Bionic 18.04 (LTS) |
+|              | Xenial 16.04 (LTS) |
+
+## Installation
 
 ```
 ansible-galaxy install erjac77.gogs
 ```
 
-#### USING _GIT CLONE_:
+## Role Variables
 
-Clone this repository inside the `roles/` subdirectory of your playbook or inside one of the additional directories specified by the `roles_path` setting in `ansible.cfg`.
+```yaml
+# Gogs host platform can be one of: 'Debian', 'RedHat' or 'Docker'
+gogs_platform: "{{ ansible_os_family }}"
+# gogs_platform: Docker
 
-```
-git clone https://github.com/erjac77/ansible-role-gogs.git erjac77.gogs
-```
+# Gogs version
+gogs_version: 0.11.91
 
-## ROLE VARIABLES
+# Download URL for the Gogs binary
+gogs_binary_url: "https://github.com/gogits/gogs/releases/download/v{{ gogs_version }}/linux_amd64.zip"
 
-```
----
+# Gogs dependencies
+gogs_dependencies:
+  - git
 
-# Gogs host platform
-gogs_platform: Docker
-#gogs_platform: "{{ ansible_os_family }}"
+# Gogs run user
+gogs_user: git
+gogs_user_home: /home/git
 
 # Gogs database settings
 gogs_db_type: SQLite3
@@ -39,16 +62,15 @@ gogs_db_host: '127.0.0.1:3306'
 gogs_db_user: root
 gogs_db_pass: default
 gogs_db_name: gogs
-gogs_db_path: data/gogs.db
+gogs_db_path: "{{ gogs_user_home }}/gogs/gogs.db"
 
 # Gogs application general settings
-gogs_app_name: 'Gogs: Go Git Service'
-gogs_repo_root_path: /data/git/gogs-repositories
-gogs_run_user: git
+gogs_app_name: 'Gogs: A painless self-hosted Git service'
+gogs_repo_root_path: "{{ gogs_user_home }}/gogs-repositories"
 gogs_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
-gogs_http_port: 10080
-gogs_ssh_port: 10022
-gogs_log_path: /app/gogs/log
+gogs_http_port: 3000
+gogs_ssh_port: 22
+gogs_log_path: "{{ gogs_user_home }}/gogs/log"
 
 # Gogs server and other services settings
 gogs_enable_captcha: true
@@ -61,7 +83,7 @@ gogs_connection_delay: 5
 gogs_admin_username: gogs
 gogs_admin_password: gogs
 gogs_admin_fullname: Gogs Administrator
-gogs_admin_email: 'gogs.admin@gogs.io'
+gogs_admin_email: gogs.admin@gogs.io
 
 # Gogs users
 gogs_users:
@@ -74,33 +96,16 @@ gogs_orgs: []
 gogs_repos: []
 ```
 
-### DOCKER VARIABLES
+## Dependencies
 
-```
----
+None.
 
-# Gogs Docker container settings
-gogs_container_name: gogs
-gogs_container_image: gogs/gogs
-gogs_container_http_host_port: "{{ gogs_http_port }}"
-gogs_container_http_container_port: 3000
-gogs_container_ssh_host_port: "{{ gogs_ssh_port }}"
-gogs_container_ssh_container_port: 22
-gogs_container_data_volume: gogs-data
-```
+## Example Playbook
 
-## DEPENDENCIES
-
-* [ansible-role-docker](https://github.com/erjac77/ansible-role-docker)
-
-## EXAMPLE PLAYBOOK
-
-```
----
-
+```yaml
 - name: Install Gogs on Docker
   hosts: localhost
-  become: yes
+  become: true
 
   vars:
     gogs_platform: Docker
@@ -124,10 +129,10 @@ gogs_container_data_volume: gogs-data
     - erjac77.gogs
 ```
 
-## LICENSE
+## License
 
 Apache 2.0
 
-## AUTHOR INFORMATION
+## Author Information
 
 Eric Jacob ([@erjac77](https://github.com/erjac77))

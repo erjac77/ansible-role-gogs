@@ -1,8 +1,22 @@
 ---
 
-# Gogs host platform
-gogs_platform: Docker
-#gogs_platform: "{{ ansible_os_family }}"
+# Gogs host platform can be one of: 'Debian', 'RedHat' or 'Docker'
+gogs_platform: "{{ ansible_os_family }}"
+# gogs_platform: Docker
+
+# Gogs version
+gogs_version: 0.11.91
+
+# Download URL for the Gogs binary
+gogs_binary_url: "https://github.com/gogits/gogs/releases/download/v{{ gogs_version }}/linux_amd64.zip"
+
+# Gogs dependencies
+gogs_dependencies:
+  - git
+
+# Gogs run user
+gogs_user: git
+gogs_user_home: /home/git
 
 # Gogs database settings
 gogs_db_type: SQLite3
@@ -10,16 +24,15 @@ gogs_db_host: '127.0.0.1:3306'
 gogs_db_user: root
 gogs_db_pass: default
 gogs_db_name: gogs
-gogs_db_path: data/gogs.db
+gogs_db_path: "{{ gogs_user_home }}/gogs/gogs.db"
 
 # Gogs application general settings
-gogs_app_name: 'Gogs: Go Git Service'
-gogs_repo_root_path: /data/git/gogs-repositories
-gogs_run_user: git
+gogs_app_name: 'Gogs: A painless self-hosted Git service'
+gogs_repo_root_path: "{{ gogs_user_home }}/gogs-repositories"
 gogs_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
-gogs_http_port: 10080
-gogs_ssh_port: 10022
-gogs_log_path: /app/gogs/log
+gogs_http_port: 3000
+gogs_ssh_port: 22
+gogs_log_path: "{{ gogs_user_home }}/gogs/log"
 
 # Gogs server and other services settings
 gogs_enable_captcha: true
@@ -32,7 +45,7 @@ gogs_connection_delay: 5
 gogs_admin_username: gogs
 gogs_admin_password: gogs
 gogs_admin_fullname: Gogs Administrator
-gogs_admin_email: 'gogs.admin@gogs.io'
+gogs_admin_email: gogs.admin@gogs.io
 
 # Gogs users
 gogs_users:

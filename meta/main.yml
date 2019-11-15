@@ -4,18 +4,22 @@ galaxy_info:
   author: Eric Jacob (@erjac77)
   description: Install Gogs on various platforms
   license: Apache 2.0
-  min_ansible_version: 2.2
+  min_ansible_version: 2.8
   platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Debian
+      versions:
+        - all
     - name: Ubuntu
       versions:
-        - trusty
-        - wily
-        - xenial
+        - all
   galaxy_tags:
     - system
-    - docker
-    - ubuntu
-    - packaging
-    - cloud
-#dependencies:
-#  - erjac77.docker
+    - git
+    - gogs
+    - repository
+    - development
+
+dependencies: []

@@ -1,0 +1,30 @@
+[Unit]
+Description={{ gogs_app_name }}}
+After=syslog.target
+After=network.target
+After=mariadb.service mysqld.service postgresql.service memcached.service redis.service
+
+[Service]
+# Modify these two values and uncomment them if you have
+# repos with lots of files and get an HTTP error 500 because
+# of that
+###
+#LimitMEMLOCK=infinity
+#LimitNOFILE=65535
+Type=simple
+User={{ gogs_user }}
+Group={{ gogs_user }}
+WorkingDirectory={{ gogs_user_home }}/gogs
+ExecStart={{ gogs_user_home }}/gogs/gogs web -port {{ gogs_http_port }}
+Restart=always
+Environment=USER=git HOME={{ gogs_user_home }}
+
+# Some distributions may not support these hardening directives. If you cannot start the service due
+# to an unknown option, comment out the ones not supported by your version of systemd.
+ProtectSystem=full
+PrivateDevices=yes
+PrivateTmp=yes
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
