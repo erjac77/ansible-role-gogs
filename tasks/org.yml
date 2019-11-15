@@ -1,5 +1,6 @@
 ---
-- set_fact:
+- name: Get organization users
+  set_fact:
     org_owners: "{{ gogs_users|selectattr('username', 'equalto', org_item.owner)|list }}"
 
 - name: Get organization
