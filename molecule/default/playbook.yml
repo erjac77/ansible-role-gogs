@@ -5,6 +5,7 @@
 
   vars:
     gogs_platform: Linux
+    gogs_hostname: localhost
     gogs_enable_captcha: false
     gogs_admin_username: gogs
     gogs_admin_password: gogs
