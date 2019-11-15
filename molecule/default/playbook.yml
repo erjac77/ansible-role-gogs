@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    gogs_platform: Docker
+    gogs_platform: Linux
     gogs_enable_captcha: false
     gogs_admin_username: gogs
     gogs_admin_password: gogs
@@ -21,7 +21,9 @@
         fullname: John Doe
         email: "john.doe@gogs.io"
         admin: false
-      - {username: jadoe, password: jadoe, email: "jane.doe@gogs.io"}
+      - username: jadoe
+        password: jadoe
+        email: "jane.doe@gogs.io"
     gogs_orgs:
       - owner: jodoe
         name: gogs2
@@ -38,8 +40,10 @@
         gitignores: Python
         license: Apache License 2.0
         readme: Default
-      - {owner: jadoe, name: jane-cool-project}
-      - {owner: gogs2, name: gogs2-project}
+      - owner: jadoe
+        name: jane-cool-project
+      - owner: gogs2
+        name: gogs2-project
 
   roles:
     - erjac77.gogs
