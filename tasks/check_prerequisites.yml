@@ -6,4 +6,4 @@
   package:
     name: "{{ gogs_dependencies }}"
     state: present
-  when: gogs_dependencies
+  when: gogs_dependencies is defined

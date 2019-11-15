@@ -35,6 +35,10 @@
     group: "{{ gogs_user }}"
     mode: 0755
 
+- name: Debug ansible_service_mgr
+  debug:
+    msg: "{{ ansible_service_mgr }}"
+
 - name: Create Gogs system service file
   template:
     src: gogs.unit.j2
@@ -49,3 +53,4 @@
     name: gogs
     enabled: true
     state: started
+  ignore_errors: true
