@@ -11,43 +11,35 @@
     gogs_admin_fullname: Gogs Administrator
     gogs_admin_email: "gogs.admin@gogs.io"
     gogs_users:
-      - {
-          username: "{{ gogs_admin_username }}",
-          password: "{{ gogs_admin_password }}",
-          fullname: "{{ gogs_admin_fullname }}",
-          email: "{{ gogs_admin_email }}",
-          admin: true,
-        }
-      - {
-          username: jodoe,
-          password: jodoe,
-          fullname: John Doe,
-          email: "john.doe@gogs.io",
-          admin: false,
-        }
-      - { username: jadoe, password: jadoe, email: "jane.doe@gogs.io" }
+      - username: "{{ gogs_admin_username }}"
+        password: "{{ gogs_admin_password }}"
+        fullname: "{{ gogs_admin_fullname }}"
+        email: "{{ gogs_admin_email }}"
+        admin: true
+      - username: jodoe
+        password: jodo
+        fullname: John Doe
+        email: "john.doe@gogs.io"
+        admin: false
+      - {username: jadoe, password: jadoe, email: "jane.doe@gogs.io"}
     gogs_orgs:
-      - {
-          owner: jodoe,
-          name: gogs2,
-          fullname: Gogs2,
-          description: Gogs(Go Git Service) is a painless self-hosted Git Service.,
-          website: "https://gogs.io",
-          location: USA,
-        }
+      - owner: jodoe
+        name: gogs2
+        fullname: Gogs2
+        description: Gogs(Go Git Service) is a painless self-hosted Git Service.
+        website: "https://gogs.io"
+        location: USA
     gogs_repos:
-      - {
-          owner: jodoe,
-          name: john-awesome-project,
-          description: My awesome project,
-          private: true,
-          auto_init: true,
-          gitignores: Python,
-          license: Apache License 2.0,
-          readme: Default,
-        }
-      - { owner: jadoe, name: jane-cool-project }
-      - { owner: gogs2, name: gogs2-project }
+      - owner: jodoe
+        name: john-awesome-project
+        description: My awesome project
+        private: true
+        auto_init: true
+        gitignores: Python
+        license: Apache License 2.0
+        readme: Default
+      - {owner: jadoe, name: jane-cool-project}
+      - {owner: gogs2, name: gogs2-project}
 
   roles:
     - erjac77.gogs

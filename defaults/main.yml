@@ -48,13 +48,11 @@ gogs_admin_email: gogs.admin@gogs.io
 
 # Gogs users
 gogs_users:
-  - {
-      username: "{{ gogs_admin_username }}",
-      password: "{{ gogs_admin_password }}",
-      fullname: "{{ gogs_admin_fullname }}",
-      email: "{{ gogs_admin_email }}",
-      admin: true,
-    }
+  - username: "{{ gogs_admin_username }}"
+    password: "{{ gogs_admin_password }}"
+    fullname: "{{ gogs_admin_fullname }}"
+    email: "{{ gogs_admin_email }}"
+    admin: true
 
 # Gogs organizations
 gogs_orgs: []

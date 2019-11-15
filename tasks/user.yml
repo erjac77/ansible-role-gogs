@@ -4,7 +4,7 @@
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/users/{{ user_item.username }}"
     user: "{{ gogs_admin_username }}"
     password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
+    force_basic_auth: true
     status_code: [200, 404]
   register: gogs_get_user_resp
 
@@ -17,7 +17,7 @@
     body_format: json
     user: "{{ gogs_admin_username }}"
     password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
+    force_basic_auth: true
     status_code: 201
   register: gogs_create_user_resp
   when: gogs_get_user_resp.status == 404
@@ -32,7 +32,7 @@
     body_format: json
     user: "{{ gogs_admin_username }}"
     password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
+    force_basic_auth: true
   register: gogs_update_user_resp
   when: gogs_get_user_resp.status == 200
   changed_when: gogs_update_user_resp.status == 200

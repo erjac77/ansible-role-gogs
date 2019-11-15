@@ -4,7 +4,7 @@
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/repos/{{ repo_item.owner }}/{{ repo_item.name }}"
     user: "{{ gogs_admin_username }}"
     password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
+    force_basic_auth: true
     status_code: [200, 404]
   register: gogs_get_repo_resp
 
@@ -17,7 +17,7 @@
     body_format: json
     user: "{{ gogs_admin_username }}"
     password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
+    force_basic_auth: true
     status_code: 201
   register: gogs_create_repo_resp
   when: gogs_get_repo_resp.status == 404
