@@ -1,0 +1,73 @@
+---
+- name: Configure Gogs (install page)
+  uri:
+    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/install"
+    method: POST
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+    body_format: form-urlencoded
+    body:
+      db_type: "{{ gogs_db_type }}"
+      db_host: "{{ gogs_db_host }}"
+      db_user: "{{ gogs_db_user }}"
+      db_passwd: "{{ gogs_db_pass }}"
+      db_name: "{{ gogs_db_name }}"
+      db_path: "{{ gogs_db_path if gogs_db_type == 'SQLite3' else '' }}"
+      app_name: "{{ gogs_app_name }}"
+      repo_root_path: "{{ gogs_repo_root_path }}"
+      run_user: "{{ gogs_user }}"
+      domain: "{{ gogs_hostname }}"
+      ssh_port: "{{ gogs_container_ssh_container_port if gogs_platform == 'Docker' else gogs_ssh_port }}"
+      http_port: "{{ gogs_container_http_container_port if gogs_platform == 'Docker' else gogs_http_port }}"
+      # yamllint disable-line rule:line-length
+      app_url: "http://{{ gogs_hostname }}:{{ gogs_container_http_container_port if gogs_platform == 'Docker' else gogs_http_port }}/"
+      log_root_path: "{{ gogs_log_path }}"
+      enable_captcha: "{{ gogs_enable_captcha }}"
+      admin_name: "{{ gogs_admin_username }}"
+      admin_passwd: "{{ gogs_admin_password }}"
+      admin_confirm_passwd: "{{ gogs_admin_password }}"
+      admin_email: "{{ gogs_admin_email }}"
+    status_code: [200, 302, 404]
+  register: gogs_install_resp
+  changed_when: gogs_install_resp.status == 302
+
+- include: wait.yml
+
+- name: Get access token
+  uri:
+    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/users/{{ gogs_admin_username }}/tokens"
+    method: POST
+    headers:
+      Content-Type: application/json
+    body: "{{ lookup('template', 'templates/token.json.j2') }}"
+    body_format: json
+    user: "{{ gogs_admin_username }}"
+    password: "{{ gogs_admin_password }}"
+    force_basic_auth: true
+    status_code: [201]
+  register: gogs_get_access_token_resp
+
+- name: Register access token
+  set_fact:
+    gogs_access_token: "{{ gogs_get_access_token_resp.json.sha1 }}"
+
+- name: Create users
+  include: user.yml
+  with_items: "{{ gogs_users }}"
+  loop_control:
+    loop_var: user_item
+  when: gogs_users is defined
+
+- name: Create organizations
+  include: org.yml
+  with_items: "{{ gogs_orgs }}"
+  loop_control:
+    loop_var: org_item
+  when: gogs_orgs is defined
+
+- name: Create repositories
+  include: repo.yml
+  with_items: "{{ gogs_repos }}"
+  loop_control:
+    loop_var: repo_item
+  when: gogs_repos is defined

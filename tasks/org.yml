@@ -1,42 +1,27 @@
 ---
-
-- set_fact:
+- name: Get organization owners - {{ org_item.name }}
+  set_fact:
     org_owners: "{{ gogs_users|selectattr('username', 'equalto', org_item.owner)|list }}"
 
-- name: Get organization
+- name: Get organization {{ org_item.name }}
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/orgs/{{ org_item.name }}"
-    user: "{{ gogs_admin_username }}"
-    password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
+    headers:
+      Content-Type: application/json
+      Authorization: "token {{ gogs_access_token }}"
     status_code: [200, 404]
   register: gogs_get_org_resp
 
-- name: Create organization
+- name: Create organization - {{ org_item.name }}
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/admin/users/{{ org_owners[0].username }}/orgs"
     method: POST
-    HEADER_Content-Type: application/json
+    headers:
+      Content-Type: application/json
+      Authorization: "token {{ gogs_access_token }}"
     body: "{{ lookup('template', 'templates/org.json.j2') }}"
     body_format: json
-    user: "{{ gogs_admin_username }}"
-    password: "{{ gogs_admin_password }}"
-    force_basic_auth: yes
     status_code: 201
   register: gogs_create_org_resp
   when: gogs_get_org_resp.status == 404
   changed_when: gogs_create_org_resp.status == 201
-
-- name: Update organization
-  uri:
-    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/orgs/{{ org_item.name }}"
-    method: PATCH
-    HEADER_Content-Type: application/json
-    body: "{{ lookup('template', 'templates/org.json.j2') }}"
-    body_format: json
-    user: "{{ org_owners[0].username }}"
-    password: "{{ org_owners[0].password }}"
-    force_basic_auth: yes
-  register: gogs_update_org_resp
-  when: gogs_get_org_resp.status == 200
-  changed_when: gogs_update_org_resp.status == 200

@@ -1,0 +1,50 @@
+---
+- name: Determine Linux distribution
+  debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }})"
+
+- name: Check prerequisites
+  include_tasks: check_prerequisites.yml
+
+- name: Create Gogs user to run Gogs service
+  user:
+    name: "{{ gogs_user }}"
+    comment: Gogs
+    home: "{{ gogs_user_home }}"
+
+- name: Download Gogs archive
+  get_url:
+    url: "{{ gogs_binary_url }}"
+    dest: "{{ gogs_user_home }}/gogs.zip"
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_user }}"
+
+- name: Unpack Gogs archive
+  unarchive:
+    src: "{{ gogs_user_home }}/gogs.zip"
+    dest: "{{ gogs_user_home }}"
+    group: "{{ gogs_user }}"
+    owner: "{{ gogs_user }}"
+    copy: false
+
+- name: Create Gogs log folder
+  file:
+    path: "{{ gogs_log_path }}"
+    state: directory
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_user }}"
+    mode: 0755
+
+- name: Create Gogs system service file
+  template:
+    src: gogs.unit.j2
+    dest: /etc/systemd/system/gogs.service
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Make sure Gogs service is running and enable it to start on boot
+  service:
+    name: gogs
+    enabled: true
+    state: started

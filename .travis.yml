@@ -1,0 +1,31 @@
+---
+language: python
+
+services:
+  - docker
+
+env:
+  global:
+    - ROLE_NAME=gogs
+  matrix:
+    - DOCKER_IMG='geerlingguy/docker-centos7-ansible:latest'
+    - DOCKER_IMG='geerlingguy/docker-debian9-ansible:latest'
+    - DOCKER_IMG='geerlingguy/docker-ubuntu1804-ansible:latest'
+
+install:
+  # Install test dependencies
+  - pip install docker molecule
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory
+  - cd ../
+  - mv ansible-role-$ROLE_NAME erjac77.$ROLE_NAME
+  - cd erjac77.$ROLE_NAME
+
+script:
+  # Run tests
+  - molecule test
+
+notifications:
+  webhooks:
+    - https://galaxy.ansible.com/api/v1/notifications/

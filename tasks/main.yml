@@ -1,10 +1,11 @@
 ---
+- name: Install Gogs on Docker
+  include_tasks: Docker/install_gogs.yml
+  when: gogs_platform == 'Docker'
 
-- name: Gather platform specific variables
-  include_vars: "{{ gogs_platform }}.yml"
+- name: Install Gogs on Linux
+  include_tasks: install_gogs.yml
+  when: (gogs_platform is undefined) or (gogs_platform != 'Docker')
 
-- include: "{{ gogs_platform }}/setup.yml"
-- include: configure.yml
-- include: users.yml
-- include: orgs.yml
-- include: repos.yml
+- name: Configure Gogs
+  include_tasks: configure_gogs.yml

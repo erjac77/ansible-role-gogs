@@ -1,4 +1,12 @@
 ---
+# Gogs log directory
+gogs_log_path: /data/gogs/log
+
+# Gogs database settings
+gogs_db_path: "/data/gogs/gogs.db"
+
+# Gogs application general settings
+gogs_repo_root_path: /data/git/gogs-repositories
 
 # Gogs Docker container settings
 gogs_container_name: gogs

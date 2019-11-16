@@ -1,7 +1,0 @@
----
-
-- name: Create users
-  include: user.yml
-  with_items: "{{ gogs_users }}"
-  loop_control:
-    loop_var: user_item

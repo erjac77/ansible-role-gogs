@@ -1,0 +1,25 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: molecule/yamllint.yml
+platforms:
+  - name: instance
+    image: ${DOCKER_IMG:-geerlingguy/docker-ubuntu1804-ansible:latest}
+    command: ${DOCKER_CMD:-""}
+    pre_build_image: ${DOCKER_PRE_BUILD_IMG:-true}
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

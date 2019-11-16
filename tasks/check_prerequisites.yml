@@ -1,0 +1,9 @@
+---
+- name: Check OS Requirements
+  include_tasks: "{{ ansible_os_family }}/check_os_requirements.yml"
+
+- name: Install Gogs dependencies
+  package:
+    name: "{{ gogs_dependencies }}"
+    state: present
+  when: gogs_dependencies is defined

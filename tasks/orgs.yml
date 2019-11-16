@@ -1,7 +1,0 @@
----
-
-- name: Create organizations
-  include: org.yml
-  with_items: "{{ gogs_orgs }}"
-  loop_control:
-    loop_var: org_item
