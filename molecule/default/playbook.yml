@@ -17,7 +17,7 @@
         email: "{{ gogs_admin_email }}"
         admin: true
       - username: jodoe
-        password: jodo
+        password: jodoe
         fullname: John Doe
         email: "john.doe@gogs.io"
         admin: false

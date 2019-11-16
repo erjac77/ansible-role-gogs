@@ -33,6 +33,24 @@
 
 - include: wait.yml
 
+- name: Get access token
+  uri:
+    url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/api/v1/users/{{ gogs_admin_username }}/tokens"
+    method: POST
+    headers:
+      Content-Type: application/json
+    body: "{{ lookup('template', 'templates/token.json.j2') }}"
+    body_format: json
+    user: "{{ gogs_admin_username }}"
+    password: "{{ gogs_admin_password }}"
+    force_basic_auth: true
+    status_code: [201]
+  register: gogs_get_access_token_resp
+
+- name: Register access token
+  set_fact:
+    gogs_access_token: "{{ gogs_get_access_token_resp.json.sha1 }}"
+
 - name: Create users
   include: user.yml
   with_items: "{{ gogs_users }}"
