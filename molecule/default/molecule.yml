@@ -10,9 +10,11 @@ lint:
 platforms:
   - name: instance
     image: ${DOCKER_IMG:-geerlingguy/docker-ubuntu1804-ansible:latest}
+    command: ${DOCKER_CMD:-""}
     pre_build_image: ${DOCKER_PRE_BUILD_IMG:-true}
-    command: ${DOCKER_CMD:-"sleep infinity"}
     privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   lint:

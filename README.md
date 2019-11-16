@@ -63,7 +63,7 @@ gogs_db_host: "127.0.0.1:3306"
 gogs_db_user: root
 gogs_db_pass: default
 gogs_db_name: gogs
-gogs_db_path: "{{ gogs_user_home }}/gogs/gogs.db"
+gogs_db_path: "{{ gogs_user_home }}/gogs/data/gogs.db"
 
 # Gogs application general settings
 gogs_app_name: "Gogs: A painless self-hosted Git service"
@@ -88,13 +88,11 @@ gogs_admin_email: gogs.admin@gogs.io
 
 # Gogs users
 gogs_users:
-  - {
-      username: "{{ gogs_admin_username }}",
-      password: "{{ gogs_admin_password }}",
-      fullname: "{{ gogs_admin_fullname }}",
-      email: "{{ gogs_admin_email }}",
-      admin: true,
-    }
+  - username: "{{ gogs_admin_username }}"
+    password: "{{ gogs_admin_password }}"
+    fullname: "{{ gogs_admin_fullname }}"
+    email: "{{ gogs_admin_email }}"
+    admin: true
 
 # Gogs organizations
 gogs_orgs: []
