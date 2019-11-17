@@ -1,5 +1,5 @@
 ---
-- name: Wait for Gogs to start up
+- name: Try to access Gogs
   uri:
     url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/"
     status_code: 200

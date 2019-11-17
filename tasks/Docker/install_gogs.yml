@@ -18,10 +18,11 @@
     image: "{{ gogs_container_image }}"
     state: started
     published_ports:
-      - "{{ gogs_container_http_host_port }}:{{ gogs_container_http_container_port }}"
-      - "{{ gogs_container_ssh_host_port }}:{{ gogs_container_ssh_container_port }}"
+      - "{{ gogs_http_port }}:{{ gogs_container_http_port }}"
+      - "{{ gogs_ssh_port }}:{{ gogs_container_ssh_port }}"
     volumes:
       - "{{ gogs_container_data_volume }}:/data"
   register: gogs_container_result
 
-- include: ./../wait.yml
+- name: Wait for Gogs to start up
+  include_tasks: ./../wait.yml
