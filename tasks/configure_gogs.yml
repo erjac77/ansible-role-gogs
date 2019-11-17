@@ -17,10 +17,9 @@
       repo_root_path: "{{ gogs_repo_root_path }}"
       run_user: "{{ gogs_user }}"
       domain: "{{ gogs_hostname }}"
-      ssh_port: "{{ gogs_container_ssh_container_port if gogs_platform == 'Docker' else gogs_ssh_port }}"
-      http_port: "{{ gogs_container_http_container_port if gogs_platform == 'Docker' else gogs_http_port }}"
-      # yamllint disable-line rule:line-length
-      app_url: "http://{{ gogs_hostname }}:{{ gogs_container_http_container_port if gogs_platform == 'Docker' else gogs_http_port }}/"
+      ssh_port: "{{ gogs_ssh_port }}"
+      http_port: "{{ gogs_http_port }}"
+      app_url: "http://{{ gogs_hostname }}:{{ gogs_http_port }}/"
       log_root_path: "{{ gogs_log_path }}"
       enable_captcha: "{{ gogs_enable_captcha }}"
       admin_name: "{{ gogs_admin_username }}"
@@ -31,7 +30,8 @@
   register: gogs_install_resp
   changed_when: gogs_install_resp.status == 302
 
-- include: wait.yml
+- name: Wait for Gogs to start up
+  include_tasks: ./../wait.yml
 
 - name: Get access token
   uri:

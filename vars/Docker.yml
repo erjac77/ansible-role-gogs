@@ -11,8 +11,6 @@ gogs_repo_root_path: /data/git/gogs-repositories
 # Gogs Docker container settings
 gogs_container_name: gogs
 gogs_container_image: gogs/gogs
-gogs_container_http_host_port: "{{ gogs_http_port }}"
-gogs_container_http_container_port: 3000
-gogs_container_ssh_host_port: "{{ gogs_ssh_port }}"
-gogs_container_ssh_container_port: 22
+gogs_container_http_port: 3000
+gogs_container_ssh_port: 22
 gogs_container_data_volume: gogs-data
