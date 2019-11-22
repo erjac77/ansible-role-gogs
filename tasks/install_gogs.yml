@@ -44,7 +44,7 @@
     mode: 0755
 
 - name: Make sure Gogs service is running and enable it to start on boot
-  service:
+  systemd:
     name: gogs
     daemon_reload: true
     enabled: true
