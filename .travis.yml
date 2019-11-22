@@ -10,6 +10,10 @@ env:
   matrix:
     - DOCKER_IMG='erjac77/docker-ubuntu1804-ansible:latest'
 
+install:
+  # Install Docker SDK for Python and Molecule
+  - pip install docker molecule
+
 before_script:
   # Use actual Ansible Galaxy role name for the project directory
   - cd ../
