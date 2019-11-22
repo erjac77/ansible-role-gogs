@@ -31,7 +31,7 @@ gogs_app_name: "Gogs: A painless self-hosted Git service"
 gogs_repo_root_path: "{{ gogs_user_home }}/gogs-repositories"
 gogs_hostname: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 gogs_http_port: 3000
-gogs_ssh_port: 22
+gogs_ssh_port: 3022
 gogs_log_path: "{{ gogs_user_home }}/gogs/log"
 
 # Gogs server and other services settings
