@@ -25,4 +25,4 @@
   register: gogs_container_result
 
 - name: Wait for Gogs to start up
-  include_tasks: ./../wait.yml
+  include_tasks: ../wait.yml
