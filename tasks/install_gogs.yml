@@ -46,5 +46,6 @@
 - name: Make sure Gogs service is running and enable it to start on boot
   service:
     name: gogs
+    daemon_reload: true
     enabled: true
     state: started
