@@ -8,12 +8,10 @@ env:
   global:
     - ROLE_NAME=gogs
   matrix:
-    - DOCKER_IMG='geerlingguy/docker-centos7-ansible:latest'
-    - DOCKER_IMG='geerlingguy/docker-debian9-ansible:latest'
-    - DOCKER_IMG='geerlingguy/docker-ubuntu1804-ansible:latest'
+    - DOCKER_IMG='erjac77/docker-ubuntu1804-ansible:latest'
 
 install:
-  # Install test dependencies
+  # Install Docker SDK for Python and Molecule
   - pip install docker molecule
 
 before_script:

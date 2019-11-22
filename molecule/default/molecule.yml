@@ -9,12 +9,10 @@ lint:
     config-file: molecule/yamllint.yml
 platforms:
   - name: instance
-    image: ${DOCKER_IMG:-geerlingguy/docker-ubuntu1804-ansible:latest}
+    image: ${DOCKER_IMG:-erjac77/docker-ubuntu1804-ansible:latest}
     command: ${DOCKER_CMD:-""}
-    pre_build_image: ${DOCKER_PRE_BUILD_IMG:-true}
+    pre_build_image: true
     privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   lint:

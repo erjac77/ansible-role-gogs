@@ -31,7 +31,7 @@
   changed_when: gogs_install_resp.status == 302
 
 - name: Wait for Gogs to start up
-  include_tasks: ./../wait.yml
+  include_tasks: wait.yml
 
 - name: Get access token
   uri:

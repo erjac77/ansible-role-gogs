@@ -1,4 +1,4 @@
-# Ansible: Gogs
+# Ansible Role: Gogs
 
 [![Build Status](https://travis-ci.com/erjac77/ansible-role-gogs.svg?branch=master)](https://travis-ci.com/erjac77/ansible-role-gogs)
 [![Ansible Quality Score](https://img.shields.io/ansible/quality/14519)](https://galaxy.ansible.com/erjac77/gogs)
@@ -9,12 +9,12 @@ An Ansible role to install Gogs (Go Git Service) on various platforms.
 
 ## Requirements
 
-#### Supported platforms
+### Supported platforms
 
 * Docker
 * Linux
 
-#### Supported Linux distributions
+#### Supported distributions
 
 | Distribution | Version            |
 | ------------ | ------------------ |
