@@ -11,7 +11,8 @@ platforms:
   - name: instance
     image: ${DOCKER_IMG:-erjac77/docker-ubuntu1804-ansible:latest}
     command: ${DOCKER_CMD:-""}
-    pre_build_image: ${DOCKER_PRE_BUILD_IMG:-true}
+    pre_build_image: True
+    privileged: True
 provisioner:
   name: ansible
   lint:
