@@ -10,7 +10,7 @@
 
 - name: If not, create it
   command: "docker volume create --name {{ gogs_container_data_volume }}"
-  when: gogs_volume_inspect_output|failed
+  when: gogs_volume_inspect_output is failed
 
 - name: Start Gogs container
   docker_container:
