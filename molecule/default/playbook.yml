@@ -5,11 +5,6 @@
 
   vars:
     gogs_platform: Linux
-    gogs_enable_captcha: false
-    gogs_admin_username: gogs
-    gogs_admin_password: gogs
-    gogs_admin_fullname: Gogs Administrator
-    gogs_admin_email: "gogs.admin@gogs.io"
     gogs_users:
       - username: "{{ gogs_admin_username }}"
         password: "{{ gogs_admin_password }}"
@@ -19,11 +14,11 @@
       - username: jodoe
         password: jodoe
         fullname: John Doe
-        email: "john.doe@gogs.io"
+        email: john.doe@gogs.io
         admin: false
       - username: jadoe
         password: jadoe
-        email: "jane.doe@gogs.io"
+        email: jane.doe@gogs.io
     gogs_orgs:
       - owner: jodoe
         name: gogs2
